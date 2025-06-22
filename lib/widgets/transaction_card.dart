@@ -9,11 +9,11 @@ class TransactionCard extends StatelessWidget {
   final Function deleteFunc;
 
   TransactionCard({
-    this.id,
-    this.amount,
-    this.title,
-    this.date,
-    this.deleteFunc,
+    required this.id,
+    required this.amount,
+    required this.title,
+    required this.date,
+    required this.deleteFunc,
   });
 
   @override
@@ -40,7 +40,7 @@ class TransactionCard extends StatelessWidget {
         ),
         title: Text(
           title,
-          style: Theme.of(context).textTheme.headline6,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         subtitle: Text(DateFormat.yMMMd().format(date)),
         trailing: IconButton(

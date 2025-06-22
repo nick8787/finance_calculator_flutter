@@ -27,7 +27,7 @@ class TransactionList extends StatelessWidget {
                 ),
                 Text(
                   'No transactions',
-                  style: Theme.of(context).textTheme.headline6.copyWith(
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         color: Colors.grey,
                       ),
                 )

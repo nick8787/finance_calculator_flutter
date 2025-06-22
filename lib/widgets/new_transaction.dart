@@ -13,12 +13,12 @@ class NewTransaction extends StatefulWidget {
 class _NewTransactionState extends State<NewTransaction> {
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
-  DateTime transactionDate;
+  late DateTime transactionDate;
   String transactionDateDisplayed = 'No date chosen';
 
   void _submitData() {
     String title = _titleController.text;
-    double amount = double.tryParse(_amountController.text);
+    double? amount = double.tryParse(_amountController.text);
     if (title.isEmpty ||
         amount == null ||
         amount <= 0 ||
@@ -80,7 +80,7 @@ class _NewTransactionState extends State<NewTransaction> {
                 label: Text('Add date'),
                 style: ButtonStyle(
                   textStyle: MaterialStateProperty.resolveWith<TextStyle>(
-                    (_) => Theme.of(context).textTheme.bodyText2.copyWith(
+                    (_) => Theme.of(context).textTheme.bodyMedium.copyWith(
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).primaryColor),
                   ),
@@ -93,7 +93,7 @@ class _NewTransactionState extends State<NewTransaction> {
             onPressed: _submitData,
             style: ButtonStyle(
               textStyle: MaterialStateProperty.resolveWith<TextStyle>(
-                (_) => Theme.of(context).textTheme.bodyText2.copyWith(
+                (_) => Theme.of(context).textTheme.bodyMedium.copyWith(
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).primaryColor),
               ),

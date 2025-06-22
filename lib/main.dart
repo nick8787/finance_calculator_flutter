@@ -18,19 +18,19 @@ class MyApp extends StatelessWidget {
       home: MyHomePage(),
       theme: ThemeData(
         primarySwatch: Colors.purple,
-        accentColor: Colors.deepPurple,
+        hintColor: Colors.deepPurple,
         fontFamily: 'Quicksand',
         textTheme: ThemeData.light().textTheme.copyWith(
-              bodyText2: TextStyle(
+              bodyMedium: TextStyle(
                 fontFamily: 'Quicksand',
               ),
-              bodyText1: TextStyle(
+              bodyLarge: TextStyle(
                 fontFamily: 'Quicksand',
               ),
-              subtitle1: TextStyle(
+              titleMedium: TextStyle(
                 fontFamily: 'Quicksand',
               ),
-              headline6: TextStyle(
+              titleLarge: TextStyle(
                 fontFamily: 'OpenSans',
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
             ),
         appBarTheme: AppBarTheme(
           textTheme: ThemeData.light().textTheme.copyWith(
-                headline6: TextStyle(
+                titleLarge: TextStyle(
                   fontFamily: 'OpenSans',
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
