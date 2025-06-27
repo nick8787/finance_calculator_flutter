@@ -5,14 +5,14 @@ class ChartBar extends StatelessWidget {
   final double _amount;
   final double _fractionOfTotal;
 
-  ChartBar(this._day, this._amount, this._fractionOfTotal);
+  const ChartBar(this._day, this._amount, this._fractionOfTotal, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Text(_day),
-        SizedBox(height: 5),
+        const SizedBox(height: 5),
         Container(
           height: 100,
           width: 25,
@@ -22,10 +22,10 @@ class ChartBar extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: Colors.grey[400],
+                    color: Colors.grey.shade400,
                     width: 1,
                   ),
-                  color: Colors.grey[200],
+                  color: Colors.grey.shade200,
                   borderRadius: BorderRadius.circular(25),
                 ),
               ),
@@ -43,14 +43,14 @@ class ChartBar extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: 5),
+        const SizedBox(height: 5),
         Container(
           height: 20,
           child: FittedBox(
             fit: BoxFit.scaleDown,
             child: Text(
               '\$${_amount.toStringAsFixed(2)}',
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
         ),

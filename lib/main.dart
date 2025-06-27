@@ -1,49 +1,49 @@
 import 'package:flutter/material.dart';
 
 import './models/transaction.dart';
-
 import './widgets/chart.dart';
 import './widgets/transaction_list.dart';
 import './widgets/new_transaction.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
+    final baseTheme = ThemeData.light();
+
     return MaterialApp(
       title: 'Flutter Demo',
-      home: MyHomePage(),
+      home: const MyHomePage(),
       theme: ThemeData(
         primarySwatch: Colors.purple,
         hintColor: Colors.deepPurple,
         fontFamily: 'Quicksand',
-        textTheme: ThemeData.light().textTheme.copyWith(
-              bodyMedium: TextStyle(
-                fontFamily: 'Quicksand',
-              ),
-              bodyLarge: TextStyle(
-                fontFamily: 'Quicksand',
-              ),
-              titleMedium: TextStyle(
-                fontFamily: 'Quicksand',
-              ),
-              titleLarge: TextStyle(
-                fontFamily: 'OpenSans',
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-            ),
-        appBarTheme: AppBarTheme(
-          textTheme: ThemeData.light().textTheme.copyWith(
-                titleLarge: TextStyle(
-                  fontFamily: 'OpenSans',
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+        textTheme: baseTheme.textTheme.copyWith(
+          bodyMedium: const TextStyle(fontFamily: 'Quicksand'),
+          bodyLarge: const TextStyle(fontFamily: 'Quicksand'),
+          titleMedium: const TextStyle(fontFamily: 'Quicksand'),
+          titleLarge: const TextStyle(
+            fontFamily: 'OpenSans',
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+        ),
+        appBarTheme: const AppBarTheme(
+          titleTextStyle: TextStyle(
+            fontFamily: 'OpenSans',
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+          toolbarTextStyle: TextStyle(
+            fontFamily: 'Quicksand',
+            fontSize: 16,
+          ),
         ),
       ),
     );
@@ -51,33 +51,30 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<Transaction> _userTransactions = [
-    // Transaction(
-    //   id: 't1',
-    //   title: 'New shoes',
-    //   amount: 80.95,
-    //   date: DateTime.now(),
-    // ),
-  ];
+  final List<Transaction> _userTransactions = [];
 
   List<Transaction> get _recentTransactions {
-    final weekAgo = DateTime.now().subtract(Duration(days: 7));
+    final weekAgo = DateTime.now().subtract(const Duration(days: 7));
     return _userTransactions.where((tx) => tx.date.isAfter(weekAgo)).toList();
   }
 
   void _addTransaction(String title, double amount, DateTime date) {
+    final newTx = Transaction(
+      id: DateTime.now().toString(),
+      title: title,
+      amount: amount,
+      date: date,
+    );
+
     setState(() {
-      _userTransactions.add(Transaction(
-        id: DateTime.now().toString(),
-        title: title,
-        amount: amount,
-        date: date,
-      ));
+      _userTransactions.add(newTx);
     });
   }
 
@@ -90,9 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _showTransactionAddingModal(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      builder: (_) {
-        return NewTransaction(_addTransaction);
-      },
+      builder: (_) => NewTransaction(_addTransaction),
     );
   }
 
@@ -100,16 +95,19 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter finance calculator'),
+        title: Text(
+          'Flutter Finance Calculator',
+          style: const TextStyle(color: Colors.black),
+        ),
         actions: [
           IconButton(
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
             onPressed: () => _showTransactionAddingModal(context),
           ),
         ],
       ),
       body: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           width: double.infinity,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -121,8 +119,8 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
         onPressed: () => _showTransactionAddingModal(context),
+        child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:udemy_2/widgets/chart_bar.dart';
+import 'package:finance_calculator/widgets/chart_bar.dart';
 import '../models/transaction.dart';
 
 class Chart extends StatelessWidget {
   final List<Transaction> _recentTransactions;
 
-  Chart(this._recentTransactions);
+  const Chart(this._recentTransactions, {super.key});
 
   List<Map<String, Object>> get _groupedTransactionAmounts {
     return List.generate(7, (index) {
       final weekDay = DateTime.now().subtract(Duration(days: index));
-      var amount = 0.0;
+      double amount = 0.0;
       for (var tx in _recentTransactions) {
         if (tx.date.day == weekDay.day &&
             tx.date.month == weekDay.month &&
@@ -27,38 +27,34 @@ class Chart extends StatelessWidget {
   }
 
   double get _totalWeekAmount {
-    double total = 0.0;
-    for (var tx in _groupedTransactionAmounts) {
-      total += tx['amount'];
-    }
-    return total;
+    return _groupedTransactionAmounts.fold(0.0, (sum, tx) {
+      return sum + (tx['amount'] as double);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Card(
-        elevation: 6,
-        margin: EdgeInsets.all(15.0),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ..._groupedTransactionAmounts.map((tx) {
-                // print((tx['amount'] as double) / _totalWeekAmount);
-                return Flexible(
-                  fit: FlexFit.tight,
-                  child: ChartBar(
-                    tx['day'],
-                    (tx['amount'] as double),
-                    _totalWeekAmount == 0.0
-                        ? 0.0
-                        : (tx['amount'] as double) / _totalWeekAmount,
-                  ),
-                );
-              })
-            ].reversed.toList(),
-          ),
-        ));
+      elevation: 6,
+      margin: const EdgeInsets.all(15.0),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: _groupedTransactionAmounts.reversed.map((tx) {
+            return Flexible(
+              fit: FlexFit.tight,
+              child: ChartBar(
+                tx['day'] as String,
+                tx['amount'] as double,
+                _totalWeekAmount == 0.0
+                    ? 0.0
+                    : (tx['amount'] as double) / _totalWeekAmount,
+              ),
+            );
+          }).toList(),
+        ),
+      ),
+    );
   }
 }

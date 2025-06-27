@@ -1,4 +1,4 @@
-name: udemy_2
+name: finance_calculator
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -69,13 +69,13 @@ flutter:
         - asset: assets/fonts/OpenSans-Regular.ttf
         - asset: assets/fonts/OpenSans-Bold.ttf
           weight: 700
-  
+
     - family: Quicksand
       fonts:
         - asset: assets/fonts/Quicksand-Regular.ttf
         - asset: assets/fonts/Quicksand-Bold.ttf
           weight: 700
-      
+
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
